@@ -57,12 +57,14 @@ def gender_genie(text, genre):
     rows = soup.select('table tr')
     # print(rows)
 
+    # TODO: take in user input for start time
     for row in rows:
         if len(row.select('.offering-page-schedule-list-time-column:-soup-contains("9:15 AM to")')) == 0:
             continue
 
         if len(row.select('.book-now-button')) > 0:
-            # The timeslot is available!! Fire off a text message
+            # The timeslot is available!!
+            # TODO: fire a text message
 
 
     return "hi"
