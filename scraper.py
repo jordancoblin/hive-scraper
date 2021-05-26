@@ -3,9 +3,12 @@ import lxml.html as lh
 from bs4 import BeautifulSoup
 import re
 import json
+from py_imessage import imessage
+import time
 
 # Resources:
 # https://stackoverflow.com/questions/13147914/how-to-simulate-http-post-request-using-python-requests-module
+# Imessage: https://pypi.org/project/py-iMessage/
 
 def gender_genie(text, genre):
     url = 'https://app.rockgympro.com/b/widget/?a=equery'
@@ -65,13 +68,26 @@ def gender_genie(text, genre):
         if len(row.select('.book-now-button')) > 0:
             # The timeslot is available!!
             # TODO: fire a text message
-
+            print(row)
 
     return "hi"
 
-def is_available(html, start_time):
-    return true
+# def is_available(html, start_time):
+#     return true
 
 
 if __name__ == '__main__':
+    phone = "6043185275"
+
+    if not imessage.check_compatibility(phone):
+        print("Not an iPhone")
+
+    guid = imessage.send(phone, "Hello World!")
+
+    # Let the recipient read the message
+    time.sleep(5)
+    resp = imessage.status(guid)
+
+    print(f'Message was read at {resp.get("date_read")}')
+
     print(gender_genie('I have a beard!', 'blog'))
